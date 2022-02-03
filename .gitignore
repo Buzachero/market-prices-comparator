@@ -1,0 +1,9 @@
+*.xls
+*.xlsx
+venv
+.idea/
+__pycache__
+bin/
+lib64
+pyvenv.cfg
+.~lock.*
