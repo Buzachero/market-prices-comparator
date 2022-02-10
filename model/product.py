@@ -1,6 +1,7 @@
 
 class Product(object):
-    def create(self, name, measure, brand):
+    def __init__(self, code, name, measure, brand):
+        self.code = code
         self.name = name
         self.measure = measure
         self.brand = brand
@@ -12,6 +13,11 @@ class Product(object):
         market_info['product_url'] = product_url
         market_info['offers'] = []
         self.markets_info.append(market_info)
+
+    def add_prices_info(self, index, offers):
+        if index >= len(self.markets_info):
+               return
+        self.markets_info[index]['offers'].append(offers)
 
     def add_price_info(self, index, min_quantity, price):
         if index >= len(self.markets_info):

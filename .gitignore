@@ -1,5 +1,3 @@
-*.xls
-*.xlsx
 venv
 .idea/
 __pycache__
