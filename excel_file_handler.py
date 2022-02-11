@@ -11,7 +11,6 @@ def read_products_from_file():
     while True:
         if active_workbook.cell(row=i, column=1).value is None:
             break
-        # product = Product()
         product_attributes = []
         for j in range(1, 5):
             product_attributes.append(active_workbook.cell(row=i, column=j).value)

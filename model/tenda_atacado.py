@@ -26,6 +26,6 @@ class TendaAtacado(Market):
         for price in prices:
             offer = {}
             offer['min_quantity'] = price['minQuantity']
-            offer['price'] = price['price']
+            offer['price'] = super().format_price(price['price'])
             offers.append(offer)
         return offers

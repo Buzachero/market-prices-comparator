@@ -43,6 +43,6 @@ class JauServe(Market):
             return offer
 
         offer['min_quantity'] = 1
-        offer['price'] = price_tokens[1]
+        offer['price'] = super().format_price(price_tokens[1])
 
         return [offer]
