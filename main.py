@@ -33,7 +33,7 @@ def show_menu_header():
     print('##############################################################')
 
 
-def show_menu():
+def show_main_menu():
     show_menu_header()
     while True:
         show_menu_1()
@@ -56,6 +56,26 @@ def show_menu_1():
     print('1) Get prices from all products')
     print('2) Choose from which products to get the prices')
     print('3) Exit')
+
+
+def get_output_format_menu():
+    while True:
+        print('\nWhere to output the result?')
+        print('1) Write to an excel file')
+        print('2) Write to terminal')
+        print('3) Exit')
+        choice_output_menu = input('X: ')
+        if not is_int(choice_output_menu):
+            continue
+        int_choice_output = int(choice_output_menu)
+        if int_choice_output < 1 or int_choice_output > 3:
+            continue
+        if int_choice_output == 3:
+            print('\nGood bye!')
+            exit(0)
+        break
+
+    return int_choice_output
 
 
 def get_prices(products):
@@ -98,7 +118,12 @@ def is_int(str):
 if __name__ == '__main__':
     products_array = excel_file_handler.read_products_from_file()
     print_products_info(products_array)
-    show_menu()
+    show_main_menu()
     get_prices(products_array)
-    show_prices(products_array)
+    choice_menu_output = get_output_format_menu()
+    if choice_menu_output == 1:
+        excel_file_handler.write_products_to_file(products_array)
+    elif choice_menu_output == 2:
+        show_prices(products_array)
+
     print()

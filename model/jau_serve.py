@@ -28,7 +28,7 @@ class JauServe(Market):
 
         product_obj = requests.get(url)
         html = product_obj.content.decode("utf-8")
-        parsed_html = BeautifulSoup(html)
+        parsed_html = BeautifulSoup(html, features="html.parser")
         value = parsed_html.body.find('span', attrs={'class': 'sales mr-2'}).text
 
         offer = {}
