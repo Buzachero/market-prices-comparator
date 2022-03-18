@@ -72,13 +72,14 @@ def write_products_to_file(products_array):
         sheet.cell(row=i, column=4).value = product.brand
         j = START_COL_PRICE
         for market_info in product.markets_info:
+            offers_qnt = len(market_info['offers'][0])
+            market_name = market_info['market_name']
+            if max_price_offers[market_name] < offers_qnt:
+                max_price_offers[market_name] = offers_qnt
+
             if market_info['product_url'] is None:
                 sheet.cell(row=i, column=j).value = WITHOUT_URL_MSG
             else:
-                offers_qnt = len(market_info['offers'][0])
-                market_name = market_info['market_name']
-                if max_price_offers[market_name] < offers_qnt:
-                    max_price_offers[market_name] = offers_qnt
                 for z in range(0, offers_qnt):
                     price_info = market_info['offers'][0][z]
                     min_quantity = price_info['min_quantity']
@@ -90,6 +91,7 @@ def write_products_to_file(products_array):
                     index = j - START_COL_PRICE
                     total_price_list[index] = total_price_list[index] + price_float
                     j = j + 1
+            j = j + (max_price_offers[market_name] - offers_qnt)
         i = i + 1
 
     j = START_COL_PRICE

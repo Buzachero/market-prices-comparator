@@ -26,12 +26,17 @@ class JauServe(Market):
         if url is None:
             return []
 
+        offer = {}
         product_obj = requests.get(url)
         html = product_obj.content.decode("utf-8")
         parsed_html = BeautifulSoup(html, features="html.parser")
-        value = parsed_html.body.find('span', attrs={'class': 'sales mr-2'}).text
+        sales = parsed_html.body.find('span', attrs={'class': 'sales mr-2'})
 
-        offer = {}
+        if sales is None:
+            return offer
+
+        value = sales.text
+
         price_currency = value.strip()
         if price_currency is None \
                 or not price_currency.startswith("R$"):
