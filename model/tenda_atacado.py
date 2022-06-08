@@ -21,11 +21,12 @@ class TendaAtacado(Market):
         if url is None:
             return []
         response = requests.get(url)
-        prices = response.json()['prices']
         offers = []
-        for price in prices:
-            offer = {}
-            offer['min_quantity'] = price['minQuantity']
-            offer['price'] = super().format_price(price['price'])
-            offers.append(offer)
+        if response.status_code == 200:
+            prices = response.json()['prices']
+            for price in prices:
+                offer = {}
+                offer['min_quantity'] = price['minQuantity']
+                offer['price'] = super().format_price(price['price'])
+                offers.append(offer)
         return offers
